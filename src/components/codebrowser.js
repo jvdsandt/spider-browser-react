@@ -23,7 +23,13 @@ class CodeBrowser extends React.Component {
   }
 
   handleSelectedPackageChange(pack) {
-    this.setState({ selectedPackage: pack });
+    let classList;
+    if (pack === null) {
+      classList = [];
+    } else {
+      classList = this.getDemoClasses();
+    }
+    this.setState({ selectedPackage: pack, classes: classList });
   }
 
   handleSelectedClassChange(clazz) {
@@ -48,7 +54,7 @@ class CodeBrowser extends React.Component {
           onSelectionChange={this.handleSelectedPackageChange}
         />
         <ClassList
-          packages={this.state.classes}
+          classes={this.state.classes}
           onSelectionChange={this.handleSelectedClassChange}
         />
       </div>

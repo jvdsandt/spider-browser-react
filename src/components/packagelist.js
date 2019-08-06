@@ -17,9 +17,9 @@ class PackageList extends React.Component {
         <ul>
           {this.props.packages.map(each => (
             <li>
-              <a href="#" onClick={e => this.selectPackage(each)}>
+              <button onClick={e => this.selectPackage(each)}>
                 {each.name}
-              </a>
+              </button>
             </li>
           ))}
         </ul>
