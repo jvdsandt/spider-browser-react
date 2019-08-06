@@ -17,7 +17,7 @@ class Repos extends React.Component {
       <div>
         {this.props.repos.map(repo => (
           <div>
-            <a href="#" onClick={e => this.selectRepo(repo.id)}>
+            <a href="#" onClick={_e => this.selectRepo(repo.id)}>
               {repo.domain} / {repo.owner} / {repo.name}
             </a>
           </div>
