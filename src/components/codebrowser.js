@@ -10,7 +10,6 @@ class CodeBrowser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            packages: [],
             selectedPackage: null,
             classes: [],
             selectedClass: null,
@@ -32,7 +31,8 @@ class CodeBrowser extends React.Component {
         if (pack === null) {
             classList = [];
         } else {
-            classList = this.getDemoClasses();
+            this.getPackageDetails(pack.id);
+            classList = pack.classes;
         }
         this.setState({selectedPackage: pack, classes: classList});
     }
@@ -55,7 +55,7 @@ class CodeBrowser extends React.Component {
                 <h1>Code browser</h1>
                 {header}
                 <PackageList
-                    packages={this.state.packages}
+                    packages={this.props.packages}
                     onSelectionChange={this.handleSelectedPackageChange}
                 />
                 <ClassList
@@ -66,18 +66,17 @@ class CodeBrowser extends React.Component {
         );
     }
 
-    getCommitPackages(commitId) {
-        fetch("https://www.cloudctrl.com/git/commit/" + commitId, {
+    getPackageDetails(packageId) {
+        fetch("https://www.cloudctrl.com/core/package/" + packageId, {
             crossDomain: true,
             method: "GET",
             rest_headers
         })
             .then(res => res.json())
             .then(data => {
-                this.setState({packages: data.packages});
+                this.setState({classes: data.classes});
             });
     }
-
 }
 
 export default CodeBrowser;

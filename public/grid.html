@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="theme-color" content="#000000">
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+	<title>Spider Browser</title>
+</head>
+
+<body>
+<style>
+.container {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 160px 60px 300px;
+	border: 1px solid black;
+}
+.container > * {
+	border: 1px solid black;
+}
+.container .controls {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+.container .source {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+.spider-list {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    list-style-type: none;
+    padding-inline-start: 8px;
+}
+.spider-list li {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+button {
+    cursor: pointer;
+    border: none;
+}
+
+</style>
+<div class="container">
+    <div>
+        <div>
+            <strong style="padding: 6px;">Packages</strong>
+        </div>
+        <div style="border-top:1px solid black; height:90%; overflow-y: scroll;">
+        <ul class="spider-list">
+            <li><button>Kernel</button></li>
+            <li><button>Collections</button></li>
+            <li><button>Streams</button></li>
+            <li><button>Kernel</button></li>
+            <li><button>Collections</button></li>
+            <li><button>Streams</button></li>
+            <li><button>Kernel</button></li>
+            <li><button>Collections</button></li>
+            <li><button>Streams</button></li>
+            <li><button>Kernel</button></li>
+            <li><button>Collections</button></li>
+            <li><button>Streams</button></li>
+            <li><button>Kernel</button></li>
+            <li><button>Collections</button></li>
+            <li><button>Streams</button></li>
+        </ul>
+        </div>
+    </div>
+    <div>Classes</div>
+    <div>Categories</div>
+    <div>Methods</div>
+    <div class="controls">Controls</div>
+    <div class="source">Source</div>
+</div>
+
+</body>
+</html>
