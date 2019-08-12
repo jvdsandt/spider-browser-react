@@ -9,17 +9,19 @@ class ClassList extends React.Component {
   selectClass(clazz) {}
 
   render() {
+    console.log(JSON.stringify(this.props.package));
     return (
       <div>
         <h2>Classes</h2>
         <ul>
-          {this.props.classes.map(each => (
-            <li>
-              <a href="#" onClick={e => this.selecClass(each)}>
-                {each.name}
-              </a>
-            </li>
-          ))}
+          {this.props.package &&
+            this.props.package.classes.map(each => (
+              <li>
+                <a href="#" onClick={e => this.selecClass(each)}>
+                  {each.name}
+                </a>
+              </li>
+            ))}
         </ul>
       </div>
     );
