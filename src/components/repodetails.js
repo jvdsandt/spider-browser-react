@@ -18,15 +18,16 @@ class RepoDetails extends React.Component {
         const branchList = (
             <div>
                 {repo.branches.map(each => (
-                    <div>
+                    <div key={each.name}>
                         {each.name} {each.datetime}
-                        <a href="#" onClick={e => this.selectCommitSha(each.sha)}>{each.sha.substring(0,7)}</a>
+                        &nbsp;
+                        <button onClick={e => this.selectCommitSha(each.sha)}>{each.sha.substring(0,7)}</button>
                     </div>
                 ))}
             </div>);
         return (
             <div>
-                <p><strong>{repo.domain} / {repo.owner} / <a href={repo.url} target="_blank">{repo.name}</a></strong></p>
+                <p><strong>{repo.domain} / {repo.owner} / <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a></strong></p>
                 <h4>Branches:</h4>
                 {branchList}
             </div>

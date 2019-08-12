@@ -1,3 +1,57 @@
 .App {
   font-family: sans-serif;
 }
+
+button {
+  border: 0;
+  border-radius: 0.25rem;
+  background: #1E88E5;
+  color: white;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  cursor: pointer;
+}
+
+.spider-list {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  overflow-y: scroll;
+  height: 200px;
+}
+
+.spider-list li {
+  display: block;
+}
+
+.spider-codebrowser {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 300px 60px 300px;
+  border: 1px solid black;
+}
+
+.spider-codebrowser > * {
+  border: 1px solid black;
+}
+
+.spider-codebrowser .controls {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.spider-codebrowser .source {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.spider-codebrowser .source pre {
+  margin: 4px;
+}

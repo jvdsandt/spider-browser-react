@@ -14,9 +14,9 @@ class PackageList extends React.Component {
         return (
             <div>
                 <h2>Packages</h2>
-                <ul>
+                <ul className={"spider-list"}>
                     {this.props.packages.map(each => (
-                        <li>
+                        <li key={each.id}>
                             <button onClick={e => this.selectPackage(each)}>
                                 {each.name}
                             </button>

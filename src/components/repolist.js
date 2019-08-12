@@ -12,9 +12,9 @@ class RepoList extends React.Component {
 
   render() {
     const repoList = (
-      <div style={{ height: "300px", "overflow-y": "scroll" }}>
+      <div style={{ height: "300px", "overflowY": "scroll" }}>
         {this.props.repos.map(repo => (
-          <div>
+          <div key={repo.id}>
             <button onClick={_e => this.selectRepo(repo)}>
               {repo.domain} / {repo.owner} / {repo.name}
             </button>
