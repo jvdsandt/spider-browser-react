@@ -1,4 +1,5 @@
 import React from "react";
+import {ListGroup} from "react-bootstrap";
 
 function getMethodList(clazz, instanceSide, category) {
     if (!clazz) {
@@ -14,18 +15,13 @@ function getMethodList(clazz, instanceSide, category) {
 const MethodList = ({clazz, instanceSide, category, onSelectionChange}) => {
     const methodList = getMethodList(clazz, instanceSide, category);
     return (
-        <div>
-            <h2>Methods</h2>
-            <ul className={"spider-list"}>
-                {methodList.map(each => (
-                    <li key={each.id}>
-                        <button onClick={() => onSelectionChange(each)}>
-                            {each.selector}
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <ListGroup variant="spider list-group-flush">
+            {methodList.map(each => (
+                <ListGroup.Item key={each.id} action variant="spider" onClick={() => onSelectionChange(each)}>
+                    {each.selector}
+                </ListGroup.Item>
+            ))}
+        </ListGroup>
     );
 }
 

@@ -1,18 +1,15 @@
 import React from "react";
+import { ListGroup } from 'react-bootstrap';
 
 const RepoList = ({ repos, onSelectionChange }) => {
   return (
-    <div>
-      <div style={{ height: "300px", overflowY: "scroll" }}>
+    <ListGroup variant="spider">
         {repos.map(repo => (
-          <div key={repo.id}>
-            <button onClick={() => onSelectionChange(repo)}>
+          <ListGroup.Item key={repo.id} variant="spider" action onClick={() => onSelectionChange(repo)}>
               {repo.domain} / {repo.owner} / {repo.name}
-            </button>
-          </div>
+          </ListGroup.Item>
         ))}
-      </div>
-    </div>
+    </ListGroup>
   );
 };
 

@@ -1,19 +1,22 @@
 import React from "react";
+import {ListGroup} from "react-bootstrap";
 
-const PackageList = ({packages, onSelectionChange}) => {
+function isSamePackage(p, selectedPackage) {
+    if (!selectedPackage) {
+        return false;
+    }
+    return p.id === selectedPackage.id;
+}
+
+const PackageList = ({packages, selection, onSelectionChange}) => {
     return (
-        <div>
-            <h2>Packages</h2>
-            <ul className={"spider-list"}>
-                {packages.map(each => (
-                    <li key={each.id}>
-                        <button onClick={() => onSelectionChange(each)}>
-                            {each.name}
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <ListGroup variant="spider list-group-flush">
+            {packages.map(each => (
+                <ListGroup.Item key={each.id} variant="spider" action active={isSamePackage(each, selection)} onClick={() => onSelectionChange(each)}>
+                    {each.name}
+                </ListGroup.Item>
+            ))}
+        </ListGroup>
     );
 }
 

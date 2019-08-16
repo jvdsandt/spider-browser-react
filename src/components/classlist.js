@@ -1,20 +1,16 @@
 import React from "react";
+import {ListGroup} from "react-bootstrap";
 
-const ClassList = ({ pack, onSelectionChange }) => {
+const ClassList = ({pack, onSelectionChange}) => {
     const classList = pack ? pack.classes : [];
     return (
-        <div>
-            <h2>Classes</h2>
-            <ul className={"spider-list"}>
-                {classList.map(each => (
-                    <li key={each.id}>
-                        <button onClick={() => onSelectionChange(each)}>
-                            {each.name}
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <ListGroup variant="spider list-group-flush">
+            {classList.map(each => (
+                <ListGroup.Item key={each.id} variant="spider" action onClick={() => onSelectionChange(each)}>
+                    {each.name}
+                </ListGroup.Item>
+            ))}
+        </ListGroup>
     );
 }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import {ListGroup} from "react-bootstrap";
 
 const category_all = "--- all ---";
 
@@ -26,19 +27,21 @@ function handleSelection(categoryName, onSelectionChange) {
     }
 }
 
-const MethodCategoryList = ({ clazz, instanceSide, onSelectionChange }) => {
+function isActiveCategory(name, selection) {
+    return selection ? name === selection : name === category_all;
+}
+
+const MethodCategoryList = ({clazz, instanceSide, selection, onSelectionChange}) => {
     const list = getCategoryList(clazz, instanceSide);
     return (
-        <div>
-            <h2>Categories</h2>
-            <ul className={"spider-list"}>
-                {list.map(each => (
-                    <li key={each}>
-                        <button onClick={() => handleSelection(each, onSelectionChange)}>{each}</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <ListGroup variant="spider list-group-flush">
+            {list.map(each => (
+                <ListGroup.Item key={each} variant="spider" action active={isActiveCategory(each, selection)}
+                                onClick={() => handleSelection(each, onSelectionChange)}>
+                    {each}
+                </ListGroup.Item>
+            ))}
+        </ListGroup>
     );
 }
 

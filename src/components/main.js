@@ -6,8 +6,9 @@ import {
     Switch,
     Redirect
 } from "react-router-dom";
+import {Container, Row, Col} from 'react-bootstrap';
 import RepoBrowser from "./repobrowser";
-import CodeBrowser from "./codebrowser";
+import CommitCodeBrowser from "./commitcodebrowser";
 
 const rest_headers = new Headers({
     "Content-Type": "application/json"
@@ -43,15 +44,15 @@ function useFetch(path) {
         },
         [url]
     );
-    return { data, loading };
+    return {data, loading};
 }
 
 const Main = () => {
     return (
         <Router>
-            <Route exact path="/" component={Home} />
-            <Route path="/index.html" component={Home} />
-            <Route path="/browse/:domain/:owner/:name/commit/:commitId" component={BrowseCommit} />
+            <Route exact path="/" component={Home}/>
+            <Route path="/index.html" component={Home}/>
+            <Route path="/browse/:domain/:owner/:name/commit/:commitId" component={BrowseCommit}/>
         </Router>
     );
 }
@@ -61,17 +62,17 @@ const Home = () => {
     const [selectedCommit, setSelectedCommit] = useState(null);
 
     return (
-        <div className="App">
+        <Container>
             <h1>spider-browser-react</h1>
             <RepoBrowser onSelectionChange={commitId => getCommitPackages(commitId, setSelectedCommit)}/>
             {selectedCommit && (
-                <CodeBrowser packages={selectedCommit.packages}/>
+                <CommitCodeBrowser commit={selectedCommit}/>
             )}
-        </div>
+        </Container>
     );
 }
 
-const BrowseCommit = ({ match }) => {
+const BrowseCommit = ({match}) => {
 
     const {data, loading} = useFetch(`/git/repos/${match.params.domain}/${match.params.owner}/${match.params.name}/commit/${match.params.commitId}`);
 
@@ -82,7 +83,7 @@ const BrowseCommit = ({ match }) => {
         <p>name: {match.params.name}</p>
         <p>commitId: {match.params.commitId}</p>
     </div>) : (
-        <CodeBrowser packages={data.packages}/>
+        <Container fluid><CommitCodeBrowser commit={data}/></Container>
     )
 }
 

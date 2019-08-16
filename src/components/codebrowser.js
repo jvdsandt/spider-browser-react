@@ -84,22 +84,14 @@ class CodeBrowser extends React.Component {
 
     render() {
         this.checkSelectedPackage();
-        let header;
-
-        if (this.state.selectedPackage) {
-            header = <p>Selected package: {this.state.selectedPackage.name}</p>;
-        } else {
-            header = <p>No selection</p>;
-        }
 
         return (
-            <div>
-                <h1>Code browser</h1>
-                {header}
+            <React.Fragment>
                 <div className="spider-codebrowser">
                     <div>
                         <PackageList
                             packages={this.props.packages}
+                            selection={this.state.selectedPackage}
                             onSelectionChange={this.handleSelectedPackageChange}
                         />
                     </div>
@@ -109,11 +101,14 @@ class CodeBrowser extends React.Component {
                             onSelectionChange={this.handleSelectedClassChange}
                         />
                     </div>
-                    <MethodCategoryList
-                        clazz={this.state.selectedClass}
-                        instanceSide={this.state.instanceSide}
-                        onSelectionChange={this.handleSelectedMethodCategoryChange}
-                    />
+                    <div>
+                        <MethodCategoryList
+                            clazz={this.state.selectedClass}
+                            instanceSide={this.state.instanceSide}
+                            selection={this.state.selectedMethodCategory}
+                            onSelectionChange={this.handleSelectedMethodCategoryChange}
+                        />
+                    </div>
                     <div>
                         <MethodList
                             clazz={this.state.selectedClass}
@@ -132,7 +127,7 @@ class CodeBrowser extends React.Component {
                         <MethodSource method={this.state.selectedMethod}/>
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 
