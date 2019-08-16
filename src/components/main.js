@@ -7,44 +7,12 @@ import {
     Redirect
 } from "react-router-dom";
 import {Container, Row, Col} from 'react-bootstrap';
+import {spiderFetch, useFetch } from "../utils/useFetch";
 import RepoBrowser from "./repobrowser";
 import CommitCodeBrowser from "./commitcodebrowser";
 
-const rest_headers = new Headers({
-    "Content-Type": "application/json"
-});
-
-function spiderFetch(path, setter) {
-    fetch("https://www.cloudctrl.com" + path, {
-        crossDomain: true,
-        method: "GET",
-        rest_headers
-    })
-        .then(res => res.json())
-        .then(data => setter(data));
-}
-
 function getCommitPackages(commitId, setter) {
     spiderFetch("/git/commit/" + commitId, setter);
-}
-
-function useFetch(path) {
-    const url = "https://www.cloudctrl.com" + path;
-    const [data, setDataState] = useState(null);
-    const [loading, setLoadingState] = useState(true);
-    useEffect(
-        () => {
-            setLoadingState(true);
-            fetch(url)
-                .then(j => j.json())
-                .then(data => {
-                    setDataState(data);
-                    setLoadingState(false);
-                });
-        },
-        [url]
-    );
-    return {data, loading};
 }
 
 const Main = () => {

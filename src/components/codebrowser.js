@@ -1,4 +1,5 @@
 import React from "react";
+import {spiderFetch, useFetch} from "../utils/useFetch";
 import PackageList from "./packagelist";
 import ClassList from "./classlist";
 import ClassInstSwitch from "./classinstswitch.js";
@@ -132,39 +133,21 @@ class CodeBrowser extends React.Component {
     }
 
     getPackageDetails(packageId) {
-        fetch("https://www.cloudctrl.com/core/packages/" + packageId, {
-            crossDomain: true,
-            method: "GET",
-            rest_headers
-        })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({selectedPackage: data});
-            });
+        spiderFetch("/core/packages/" + packageId, data => {
+            this.setState({selectedPackage: data});
+        });
     }
 
     getClassDetails(classId) {
-        fetch("https://www.cloudctrl.com/core/classes/" + classId, {
-            crossDomain: true,
-            method: "GET",
-            rest_headers
-        })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({selectedClass: data});
-            });
+        spiderFetch("/core/classes/" + classId, data => {
+            this.setState({selectedClass: data});
+        });
     }
 
     getMethodDetails(methodId) {
-        fetch("https://www.cloudctrl.com/core/methods/" + methodId, {
-            crossDomain: true,
-            method: "GET",
-            rest_headers
-        })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({selectedMethod: data});
-            });
+        spiderFetch("/core/methods/" + methodId, data => {
+            this.setState({selectedMethod: data});
+        });
     }
 }
 
