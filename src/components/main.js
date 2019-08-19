@@ -1,10 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {
     BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    Redirect
+    Route
 } from "react-router-dom";
 import {Container, Row, Col} from 'react-bootstrap';
 import {spiderFetch, useFetch } from "../utils/useFetch";

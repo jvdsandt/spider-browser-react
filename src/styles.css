@@ -44,10 +44,10 @@
   grid-column-start: 1;
   grid-column-end: 5;
   height: 100%;
-  overflow-y: scroll;
 }
 
 .spider-codebrowser .source pre {
-  margin: 4px;
-  tab-size: 3;
+  margin: 0;
+  padding: .3em;
+  height: 100%;
 }
