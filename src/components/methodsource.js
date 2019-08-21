@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import Prism from "prismjs";
-import "./prism.css";
+import "prismjs/components/prism-smalltalk.min";
+import "prismjs/themes/prism.css";
 
 const MethodSource = ({method}) => {
 

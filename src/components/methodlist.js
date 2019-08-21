@@ -12,12 +12,17 @@ function getMethodList(clazz, instanceSide, category) {
     return list;
 }
 
-const MethodList = ({clazz, instanceSide, category, onSelectionChange}) => {
+function isActiveMethod(m, selection) {
+    return selection ? m.id === selection.id : false;
+}
+
+const MethodList = ({clazz, instanceSide, category, selection, onSelectionChange}) => {
     const methodList = getMethodList(clazz, instanceSide, category);
     return (
         <ListGroup variant="spider list-group-flush">
             {methodList.map(each => (
-                <ListGroup.Item key={each.id} action variant="spider" onClick={() => onSelectionChange(each)}>
+                <ListGroup.Item key={each.id} action active={isActiveMethod(each, selection)} variant="spider"
+                                onClick={() => onSelectionChange(each)}>
                     {each.selector}
                 </ListGroup.Item>
             ))}

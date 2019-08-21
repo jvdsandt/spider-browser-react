@@ -114,6 +114,7 @@ class CodeBrowser extends React.Component {
                     <div>
                         <ClassList
                             pack={this.state.selectedPackage}
+                            selection={this.state.selectedClass}
                             onSelectionChange={this.handleSelectedClassChange}
                         />
                     </div>
@@ -130,6 +131,7 @@ class CodeBrowser extends React.Component {
                             clazz={this.state.selectedClass}
                             instanceSide={this.state.instanceSide}
                             category={this.state.selectedMethodCategory}
+                            selection={this.state.selectedMethod}
                             onSelectionChange={this.handleSelectedMethodChange}
                         />
                     </div>
