@@ -1,11 +1,8 @@
 import React from "react";
 import {Row, Col} from 'react-bootstrap';
+import {spiderFetch, useFetch} from "../utils/useFetch";
 import RepoList from "./repolist";
 import RepoDetails from "./repodetails";
-
-const rest_headers = new Headers({
-    "Content-Type": "application/json"
-});
 
 class RepoBrowser extends React.Component {
     constructor(props) {
@@ -31,8 +28,8 @@ class RepoBrowser extends React.Component {
                         <h2>Repositories</h2>
                     </Col>
                 </Row>
-                <Row style={{"height":"300px"}}>
-                    <Col style={{"height":"100%"}}>
+                <Row style={{"height": "300px"}}>
+                    <Col style={{"height": "100%"}}>
                         <RepoList
                             repos={this.state.repos}
                             onSelectionChange={this.handleSelectedRepoChange}
@@ -41,7 +38,7 @@ class RepoBrowser extends React.Component {
                     <Col>
                         <RepoDetails
                             repo={this.state.selectedRepoDetails}
-                            onSelectionChange={this.props.onSelectionChange}
+                            onSelectionChange={(sha) => this.props.onSelectionChange(this.state.selectedRepo, sha)}
                         />
                     </Col>
                 </Row>
@@ -50,35 +47,15 @@ class RepoBrowser extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://www.cloudctrl.com/git/repos", {
-            crossDomain: true,
-            method: "GET",
-            rest_headers
-        })
-            .then(res => res.json())
-            .then(data => {
-                this.setState({repos: data.list});
-            });
+        spiderFetch("/git/repos", data => {
+            this.setState({repos: data.list});
+        });
     }
 
     getRepoDetails(repo) {
-        fetch(
-            "https://www.cloudctrl.com/git/repos/" +
-            repo.domain +
-            "/" +
-            repo.owner +
-            "/" +
-            repo.name,
-            {
-                crossDomain: true,
-                method: "GET",
-                rest_headers
-            }
-        )
-            .then(res => res.json())
-            .then(data => {
-                this.setState({selectedRepoDetails: data});
-            });
+        spiderFetch(`/git/repos/${repo.domain}/${repo.owner}/${repo.name}`, data => {
+            this.setState({selectedRepoDetails: data});
+        });
     }
 }
 

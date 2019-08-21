@@ -1,5 +1,6 @@
 import React from "react";
 import {spiderFetch, useFetch} from "../utils/useFetch";
+import history from "../utils/history";
 import PackageList from "./packagelist";
 import ClassList from "./classlist";
 import ClassInstSwitch from "./classinstswitch.js";
@@ -19,7 +20,7 @@ class CodeBrowser extends React.Component {
             selectedClass: null,
             instanceSide: true,
             selectedMethodCategory: null,
-            selectedMethod: null
+            selectedMethod: null,
         };
         this.handleSelectedPackageChange = this.handleSelectedPackageChange.bind(
             this
@@ -38,13 +39,27 @@ class CodeBrowser extends React.Component {
         }
     }
 
+    // currentPath() {
+    //     let path = this.props.basePath;
+    //     if (this.state.selectedPackage) {
+    //         path = path + "/" + this.state.selectedPackage.name;
+    //         if (this.state.selectedClass) {
+    //             path = path + "/" + this.state.selectedClass.name;
+    //             if (this.state.selectedMethod) {
+    //                 path = path + "/" + (this.state.instanceSide ? "instance" : "class") + "/" + this.state.selectedMethod.selector;
+    //             }
+    //         }
+    //     }
+    //     return path;
+    // }
+
     handleSelectedPackageChange(pack) {
         this.handleSelectedClassChange(null);
         if (pack === null) {
             this.setState({selectedPackage: null});
         } else {
             this.getPackageDetails(pack.id);
-        }
+         }
     }
 
     handleSelectedClassChange(clazz) {
@@ -99,6 +114,7 @@ class CodeBrowser extends React.Component {
                     <div>
                         <ClassList
                             pack={this.state.selectedPackage}
+                            selection={this.state.selectedClass}
                             onSelectionChange={this.handleSelectedClassChange}
                         />
                     </div>
@@ -115,6 +131,7 @@ class CodeBrowser extends React.Component {
                             clazz={this.state.selectedClass}
                             instanceSide={this.state.instanceSide}
                             category={this.state.selectedMethodCategory}
+                            selection={this.state.selectedMethod}
                             onSelectionChange={this.handleSelectedMethodChange}
                         />
                     </div>

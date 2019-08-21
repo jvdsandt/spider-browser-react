@@ -1,18 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {
     BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    Redirect
+    Route
 } from "react-router-dom";
 import {Container, Row, Col} from 'react-bootstrap';
 import {spiderFetch, useFetch } from "../utils/useFetch";
 import RepoBrowser from "./repobrowser";
 import CommitCodeBrowser from "./commitcodebrowser";
 
-function getCommitPackages(commitId, setter) {
-    spiderFetch("/git/commit/" + commitId, setter);
+function getCommitPackages(repo, commitId, setter) {
+    spiderFetch(`/git/repos/${repo.domain}/${repo.owner}/${repo.name}/commit/${commitId}`, setter);
 }
 
 const Main = () => {
@@ -34,7 +31,7 @@ const Home = () => {
     return (
         <Container>
             <h1>spider-browser-react</h1>
-            <RepoBrowser onSelectionChange={commitId => getCommitPackages(commitId, setSelectedCommit)}/>
+            <RepoBrowser onSelectionChange={(repo, commitId) => getCommitPackages(repo, commitId, setSelectedCommit)}/>
             {selectedCommit && (
                 <CommitCodeBrowser commit={selectedCommit}/>
             )}

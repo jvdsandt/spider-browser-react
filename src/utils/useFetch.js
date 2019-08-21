@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 
 const rest_headers = new Headers({
     "Content-Type": "application/json"
