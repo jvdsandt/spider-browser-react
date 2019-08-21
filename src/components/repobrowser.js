@@ -57,7 +57,7 @@ class RepoBrowser extends React.Component {
         })
             .then(res => res.json())
             .then(data => {
-                this.setState({repos: data});
+                this.setState({repos: data.list});
             });
     }
 
