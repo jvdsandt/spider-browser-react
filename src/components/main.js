@@ -3,8 +3,8 @@ import {
     BrowserRouter as Router,
     Route
 } from "react-router-dom";
-import {Container, Row, Col} from 'react-bootstrap';
-import {spiderFetch, useFetch } from "../utils/useFetch";
+import {Container, Row, Col, Card} from 'react-bootstrap';
+import {spiderFetch, useFetch} from "../utils/useFetch";
 import RepoBrowser from "./repobrowser";
 import CommitCodeBrowser from "./commitcodebrowser";
 
@@ -43,13 +43,17 @@ const BrowseCommit = ({match}) => {
 
     const {data, loading} = useFetch(`/git/repos/${match.params.domain}/${match.params.owner}/${match.params.name}/commit/${match.params.commitId}`);
 
-    return loading ? (<div>
-        <h1>Loading ...</h1>
-        <p>domain: {match.params.domain}</p>
-        <p>owner: {match.params.owner}</p>
-        <p>name: {match.params.name}</p>
-        <p>commitId: {match.params.commitId}</p>
-    </div>) : (
+    return loading ? (<Container fluid>
+        <Card>
+            <Card.Body>
+                <Card.Title>Loading ...</Card.Title>
+                <p>domain: {match.params.domain}</p>
+                <p>owner: {match.params.owner}</p>
+                <p>name: {match.params.name}</p>
+                <p>commitId: {match.params.commitId}</p>
+            </Card.Body>
+        </Card>
+    </Container>) : (
         <Container fluid><CommitCodeBrowser commit={data}/></Container>
     )
 }
