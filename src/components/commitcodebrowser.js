@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Card} from 'react-bootstrap';
+import { formatTimestamp} from "../utils/format";
 import CodeBrowser from "./codebrowser";
 
 const CommitParentsList = ({commit}) => {
@@ -41,7 +42,7 @@ const CommitCodeBrowser = ({commit}) => {
                     <Card.Title>{title}</Card.Title>
                     <p>
                         Author: {commit.authorName}<br/>
-                        Datetime: {commit.datetime}<br/>
+                        Datetime: {formatTimestamp(commit.datetime)}<br/>
                         Message: {commit.message}<br/>
                         <CommitParentsList commit={commit}/>
                     </p>
