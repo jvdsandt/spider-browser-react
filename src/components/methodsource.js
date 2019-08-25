@@ -6,8 +6,11 @@ import "prismjs/themes/prism.css";
 const MethodSource = ({method}) => {
 
     useEffect(() => {
-        Prism.highlightAll();
-    }, [ method ]);
+        const tooLongToFormat = source != null && source.length > 2500;
+        if (!tooLongToFormat) {
+            Prism.highlightAll();
+        }
+    }, [method]);
 
     const source = method ? method.source : "";
     return (

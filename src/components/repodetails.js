@@ -1,4 +1,5 @@
 import React from "react";
+import { formatTimestamp} from "../utils/format";
 
 class RepoDetails extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class RepoDetails extends React.Component {
             <div>
                 {repo.branches.map(each => (
                     <div key={each.name}>
-                        {each.name} {each.datetime}
+                        {each.name} {formatTimestamp(each.datetime)}
                         &nbsp;
                         <button onClick={e => this.selectCommitSha(each.sha)}>{each.sha.substring(0,7)}</button>
                     </div>
