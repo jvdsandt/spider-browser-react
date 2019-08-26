@@ -8,10 +8,6 @@ import MethodCategoryList from "./methodcategorylist";
 import MethodList from "./methodlist";
 import MethodSource from "./methodsource";
 
-const rest_headers = new Headers({
-    "Content-Type": "application/json"
-});
-
 class CodeBrowser extends React.Component {
     constructor(props) {
         super(props);
