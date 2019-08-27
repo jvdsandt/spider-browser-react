@@ -22,6 +22,24 @@ const CommitParentsList = ({commit}) => {
     </React.Fragment>);
 }
 
+const CommitChildrenList = ({commit}) => {
+    if (commit.children.length === 0) {
+        return ("");
+    }
+    const repo = commit.repo;
+    return (<React.Fragment>
+        Children:
+        {commit.children.map(p => (
+            <span key={"p.sha"}>
+                {' '}
+                <Link to={`/browse/${repo.domain}/${repo.owner}/${repo.name}/commit/${p.sha}`} >
+                    {p.sha.substring(0, 7)}
+                </Link>
+            </span>
+        ))}
+    </React.Fragment>);
+}
+
 const CommitCodeBrowser = ({commit}) => {
 
     if (!commit) {
@@ -41,10 +59,15 @@ const CommitCodeBrowser = ({commit}) => {
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
                     <p>
-                        Author: {commit.authorName}<br/>
+                        Author:
+                        <Link to={`/diff/${commit.repo.domain}/${commit.repo.owner}/${commit.repo.name}/commit/${commit.sha}`}>
+                        {commit.authorName}
+                        </Link>
+                            <br/>
                         Datetime: {formatTimestamp(commit.datetime)}<br/>
                         Message: {commit.message}<br/>
-                        <CommitParentsList commit={commit}/>
+                        <CommitParentsList commit={commit}/><br/>
+                        <CommitChildrenList commit={commit}/>
                     </p>
                 </Card.Body>
             </Card>
