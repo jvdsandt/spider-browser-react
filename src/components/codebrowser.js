@@ -3,7 +3,8 @@ import {spiderFetch, useFetch} from "../utils/useFetch";
 import history from "../utils/history";
 import PackageList from "./packagelist";
 import ClassList from "./classlist";
-import ClassInstSwitch from "./classinstswitch.js";
+import ClassInstSwitch from "./classinstswitch";
+import ClassDefinition from "./classdefinition";
 import MethodCategoryList from "./methodcategorylist";
 import MethodList from "./methodlist";
 import MethodSource from "./methodsource";
@@ -64,7 +65,7 @@ class CodeBrowser extends React.Component {
         if (clazz === null) {
             this.setState({selectedClass: null});
         } else {
-            this.getClassDetails(clazz.id);
+            this.getClassDetails(clazz.id, this.state.selectedPackage.id);
         }
     }
 
@@ -96,6 +97,10 @@ class CodeBrowser extends React.Component {
 
     render() {
         this.checkSelectedPackage();
+
+        const source = this.state.selectedMethod === null ?
+            <ClassDefinition clazz={this.state.selectedClass} instanceSide={this.state.instanceSide} /> :
+            <MethodSource method={this.state.selectedMethod}/>;
 
         return (
             <React.Fragment>
@@ -138,7 +143,7 @@ class CodeBrowser extends React.Component {
                         />
                     </div>
                     <div className="source">
-                        <MethodSource method={this.state.selectedMethod}/>
+                        {source}
                     </div>
                 </div>
             </React.Fragment>
@@ -151,8 +156,8 @@ class CodeBrowser extends React.Component {
         });
     }
 
-    getClassDetails(classId) {
-        spiderFetch("/core/classes/" + classId, data => {
+    getClassDetails(classId, packageId) {
+        spiderFetch(`/core/classes/${classId}?packageId=${packageId}`, data => {
             this.setState({selectedClass: data});
         });
     }

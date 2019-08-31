@@ -12,7 +12,7 @@ const CommitParentsList = ({commit}) => {
     return (<React.Fragment>
         Parents:
         {commit.parents.map(p => (
-            <span key={"p.sha"}>
+            <span key={p.sha}>
                 {' '}
                 <Link to={`/browse/${repo.domain}/${repo.owner}/${repo.name}/commit/${p.sha}`} >
                     {p.sha.substring(0, 7)}
@@ -30,7 +30,7 @@ const CommitChildrenList = ({commit}) => {
     return (<React.Fragment>
         Children:
         {commit.children.map(p => (
-            <span key={"p.sha"}>
+            <span key={p.sha}>
                 {' '}
                 <Link to={`/browse/${repo.domain}/${repo.owner}/${repo.name}/commit/${p.sha}`} >
                     {p.sha.substring(0, 7)}
