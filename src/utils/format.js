@@ -7,4 +7,11 @@ function formatTimestamp(input) {
     return input.substring(0, 10) + ' ' + input.substring(11, 16);
 }
 
-export { formatTimestamp }
+function formatSha(input) {
+    if (input === null) {
+        return '';
+    }
+    return input.substring(0, 7);
+}
+
+export { formatTimestamp, formatSha }

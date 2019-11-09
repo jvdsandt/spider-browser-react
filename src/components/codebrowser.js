@@ -8,6 +8,7 @@ import ClassDefinition from "./classdefinition";
 import MethodCategoryList from "./methodcategorylist";
 import MethodList from "./methodlist";
 import MethodSource from "./methodsource";
+import CodeFooter from "./codefooter";
 
 class CodeBrowser extends React.Component {
     constructor(props) {
@@ -55,7 +56,7 @@ class CodeBrowser extends React.Component {
         if (pack === null) {
             this.setState({selectedPackage: null});
         } else {
-            this.getPackageDetails(pack.id);
+            this.getPackageDetails(pack.id, this.props.gitRootId);
          }
     }
 
@@ -65,7 +66,7 @@ class CodeBrowser extends React.Component {
         if (clazz === null) {
             this.setState({selectedClass: null});
         } else {
-            this.getClassDetails(clazz.id, this.state.selectedPackage.id);
+            this.getClassDetails(clazz.id, this.state.selectedPackage.id, this.props.gitRootId);
         }
     }
 
@@ -81,7 +82,7 @@ class CodeBrowser extends React.Component {
         if (method === null) {
             this.setState({selectedMethod: null});
         } else {
-            this.getMethodDetails(method.id);
+            this.getMethodDetails(method.id, this.state.selectedClass.name, !this.state.instanceSide, this.props.gitRootId);
         }
     }
 
@@ -145,25 +146,31 @@ class CodeBrowser extends React.Component {
                     <div className="source">
                         {source}
                     </div>
+                    <div className="footer">
+                        <CodeFooter
+                            selectedPackage={this.state.selectedPackage}
+                            selectedClass={this.state.selectedClass}
+                            selectedMethod={this.state.selectedMethod} />
+                    </div>
                 </div>
             </React.Fragment>
         );
     }
 
-    getPackageDetails(packageId) {
-        spiderFetch("/core/packages/" + packageId, data => {
+    getPackageDetails(packageId, gitRootId) {
+        spiderFetch(`/core/packages/${packageId}?gitRootId=${gitRootId}`, data => {
             this.setState({selectedPackage: data});
         });
     }
 
-    getClassDetails(classId, packageId) {
-        spiderFetch(`/core/classes/${classId}?packageId=${packageId}`, data => {
+    getClassDetails(classId, packageId, gitRootId) {
+        spiderFetch(`/core/classes/${classId}?packageId=${packageId}&gitRootId=${gitRootId}`, data => {
             this.setState({selectedClass: data});
         });
     }
 
-    getMethodDetails(methodId) {
-        spiderFetch("/core/methods/" + methodId, data => {
+    getMethodDetails(methodId, className, isMeta, gitRootId) {
+        spiderFetch(`/core/methods/${methodId}?className=${className}&isMeta=${isMeta}&gitRootId=${gitRootId}`, data => {
             this.setState({selectedMethod: data});
         });
     }

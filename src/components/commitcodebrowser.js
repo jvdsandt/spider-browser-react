@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Card} from 'react-bootstrap';
-import { formatTimestamp} from "../utils/format";
+import { formatTimestamp, formatSha } from "../utils/format";
 import CodeBrowser from "./codebrowser";
 
 const CommitParentsList = ({commit}) => {
@@ -15,7 +15,7 @@ const CommitParentsList = ({commit}) => {
             <span key={p.sha}>
                 {' '}
                 <Link to={`/browse/${repo.domain}/${repo.owner}/${repo.name}/commit/${p.sha}`} >
-                    {p.sha.substring(0, 7)}
+                    {formatSha(p.sha)}
                 </Link>
             </span>
             ))}
@@ -33,7 +33,7 @@ const CommitChildrenList = ({commit}) => {
             <span key={p.sha}>
                 {' '}
                 <Link to={`/browse/${repo.domain}/${repo.owner}/${repo.name}/commit/${p.sha}`} >
-                    {p.sha.substring(0, 7)}
+                    {formatSha(p.sha)}
                 </Link>
             </span>
         ))}
@@ -71,7 +71,7 @@ const CommitCodeBrowser = ({commit}) => {
                     </p>
                 </Card.Body>
             </Card>
-            <CodeBrowser packages={commit.packages}/>
+            <CodeBrowser packages={commit.packages} gitRootId={commit.rootId}/>
         </React.Fragment>
     );
 };
