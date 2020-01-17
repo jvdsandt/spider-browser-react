@@ -6,6 +6,7 @@ import {
 import {Container, Row, Col, Card} from 'react-bootstrap';
 import {spiderFetch, useFetch} from "../utils/useFetch";
 import RepoBrowser from "./repobrowser";
+import Search from "./search.js";
 import CommitCodeBrowser from "./commitcodebrowser";
 
 function getCommitPackages(repo, commitId, setter) {
@@ -20,6 +21,7 @@ const Main = () => {
             <Route path="/browse/:domain/:owner/:name/commit/:commitId" component={BrowseCommit}/>
             <Route path="/browse/:domain/:owner/:name/branch/:branch" component={BrowseBranch}/>
             <Route path="/browse/:domain/:owner/:name/tag/:tag" component={BrowseTag}/>
+            <Route path="/search" component={SearchPanel}/>
         </Router>
     );
 }
@@ -86,6 +88,18 @@ const BrowseTag = ({match}) => {
     </div>) : (
         <Container fluid><CommitCodeBrowser commit={data.commit}/></Container>
     )
+}
+
+const SearchPanel = () => {
+
+//    const [selectedCommit, setSelectedCommit] = useState(null);
+
+    return (
+        <Container>
+            <h1>spider-browser-react - Search</h1>
+            <Search/>
+        </Container>
+    );
 }
 
 export default Main;
