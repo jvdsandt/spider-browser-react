@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import {
-    BrowserRouter as Router,
-    Route
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Container, Row, Col, Card} from 'react-bootstrap';
 import {spiderFetch, useFetch} from "../utils/useFetch";
 import RepoBrowser from "./repobrowser";
+import Search from "./search/search.js";
 import CommitCodeBrowser from "./commitcodebrowser";
+import Topmenu from "./topmenu/topmenu";
 
 function getCommitPackages(repo, commitId, setter) {
     spiderFetch(`/git/repos/${repo.domain}/${repo.owner}/${repo.name}/commit/${commitId}`, setter);
@@ -15,11 +14,15 @@ function getCommitPackages(repo, commitId, setter) {
 const Main = () => {
     return (
         <Router basename="/spider">
-            <Route exact path="/" component={Home}/>
-            <Route path="/index.html" component={Home}/>
-            <Route path="/browse/:domain/:owner/:name/commit/:commitId" component={BrowseCommit}/>
-            <Route path="/browse/:domain/:owner/:name/branch/:branch" component={BrowseBranch}/>
-            <Route path="/browse/:domain/:owner/:name/tag/:tag" component={BrowseTag}/>
+            <Topmenu/>
+            <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path="/index.html" component={Home}/>
+                <Route path="/browse/:domain/:owner/:name/commit/:commitId" component={BrowseCommit}/>
+                <Route path="/browse/:domain/:owner/:name/branch/:branch" component={BrowseBranch}/>
+                <Route path="/browse/:domain/:owner/:name/tag/:tag" component={BrowseTag}/>
+                <Route path="/search" component={SearchPanel}/>
+            </Switch>
         </Router>
     );
 }
@@ -29,13 +32,15 @@ const Home = () => {
     const [selectedCommit, setSelectedCommit] = useState(null);
 
     return (
-        <Container>
-            <h1>spider-browser-react</h1>
-            <RepoBrowser onSelectionChange={(repo, commitId) => getCommitPackages(repo, commitId, setSelectedCommit)}/>
-            {selectedCommit && (
-                <CommitCodeBrowser commit={selectedCommit}/>
-            )}
-        </Container>
+        <React.Fragment>
+            <Container>
+                <h1>spider-browser-react</h1>
+                <RepoBrowser onSelectionChange={(repo, commitId) => getCommitPackages(repo, commitId, setSelectedCommit)}/>
+                {selectedCommit && (
+                    <CommitCodeBrowser commit={selectedCommit}/>
+                )}
+            </Container>
+        </React.Fragment>
     );
 }
 
@@ -86,6 +91,16 @@ const BrowseTag = ({match}) => {
     </div>) : (
         <Container fluid><CommitCodeBrowser commit={data.commit}/></Container>
     )
+}
+
+const SearchPanel = () => {
+
+    return (
+        <Container>
+            <h1>spider-browser-react - Search</h1>
+            <Search/>
+        </Container>
+    );
 }
 
 export default Main;
