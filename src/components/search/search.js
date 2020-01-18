@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import { Col } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import {spiderFetch} from "../utils/useFetch";
+import {spiderFetch} from "../../utils/useFetch";
+import SearchResults from "./searchresults";
 
 
 const Search = () => {
@@ -17,9 +18,9 @@ const Search = () => {
     const [classNames, setClassNames] = useState([]);
     const [selectors, setSelectors] = useState([]);
 
-    const doSearch = () => {
-        if (term.length > 2) {
-            spiderFetch(`/search_names/${term}`, data => {
+    const doSearch = (seachtString) => {
+        if (seachtString.length > 2) {
+            spiderFetch(`/core/search_names/${seachtString}`, data => {
                 setResult(data);
             });
         } else {
@@ -29,18 +30,20 @@ const Search = () => {
 
     const handleChange = (event) => {
         setTerm(event.target.value);
-        doSearch(term);
+        doSearch(event.target.value);
     }
 
     return (
-        <Form>
-            <Form.Row>
-                <Col>
-                    Value: {term}
-                    <Form.Control placeholder="Search" onChange={(event) => handleChange(event)} />
-                </Col>
-            </Form.Row>
-        </Form>
+        <React.Fragment>
+            <Form>
+                <Form.Row>
+                    <Col>
+                        <Form.Control placeholder="Search" onChange={(event) => handleChange(event)} />
+                    </Col>
+                </Form.Row>
+            </Form>
+            <SearchResults results={result} />
+        </React.Fragment>
     );
 };
 
