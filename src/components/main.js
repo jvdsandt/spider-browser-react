@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import {Container, Row, Col, Card} from 'react-bootstrap';
+import {Container, Card} from 'react-bootstrap';
 import {spiderFetch, useFetch} from "../utils/useFetch";
 import RepoBrowser from "./repobrowser";
 import Search from "./search/search.js";
 import CommitCodeBrowser from "./commitcodebrowser";
 import Topmenu from "./topmenu/topmenu";
+import PackageInfo from "./packageinfo";
 
 function getCommitPackages(repo, commitId, setter) {
     spiderFetch(`/git/repos/${repo.domain}/${repo.owner}/${repo.name}/commit/${commitId}`, setter);
@@ -22,6 +23,7 @@ const Main = () => {
                 <Route path="/browse/:domain/:owner/:name/branch/:branch" component={BrowseBranch}/>
                 <Route path="/browse/:domain/:owner/:name/tag/:tag" component={BrowseTag}/>
                 <Route path="/search" component={SearchPanel}/>
+                <Route path="/package_names/:name" component={PackageInfo} />
             </Switch>
         </Router>
     );

@@ -19,7 +19,7 @@ const CodeFooter = ({selectedPackage, selectedClass, selectedMethod}) => {
     }
     return (
         <div>
-            {entity} edtion: {formatSha(gitCommit.sha)} {gitCommit.authorName} {formatTimestamp(gitCommit.datetime)}
+            {entity} edtion: {formatSha(gitCommit.sha)} {gitCommit.authorName} {formatTimestamp(gitCommit.datetime)} - {gitCommit.messageLine}
         </div>
     );
 }

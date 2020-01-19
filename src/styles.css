@@ -27,7 +27,7 @@
 .spider-codebrowser {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 300px 60px 300px 40px;
+  grid-template-rows: 250px 50px 250px 40px;
   border: 1px solid black;
 }
 

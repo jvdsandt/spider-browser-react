@@ -4,7 +4,8 @@ const rest_headers = new Headers({
     "Content-Type": "application/json"
 });
 
-const baseUrl = "https://www.cloudctrl.com";
+//const baseUrl = "https://www.cloudctrl.com";
+const baseUrl = "http://localhost:8080"
 
 function spiderFetch(path, setter) {
     fetch(baseUrl + path, {

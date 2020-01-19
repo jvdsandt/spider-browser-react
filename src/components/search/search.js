@@ -14,18 +14,18 @@ const Search = () => {
     const [fetchClasses, setFetchClasses] = useState(true);
     const [fetchSelectors, setFetchSelectors] = useState(true);
 
-    const [packageNames, setPackageNames] = useState([]);
-    const [classNames, setClassNames] = useState([]);
-    const [selectors, setSelectors] = useState([]);
-
     const doSearch = (seachtString) => {
-        if (seachtString.length > 2) {
-            spiderFetch(`/core/search_names/${seachtString}`, data => {
+        if (isValidTerm(seachtString)) {
+            spiderFetch(`/core/search?q=${seachtString}`, data => {
                 setResult(data);
             });
         } else {
             setResult({});
         }
+    }
+
+    const isValidTerm = (input) => {
+        return input.length > 2;
     }
 
     const handleChange = (event) => {
@@ -38,7 +38,7 @@ const Search = () => {
             <Form>
                 <Form.Row>
                     <Col>
-                        <Form.Control placeholder="Search" onChange={(event) => handleChange(event)} />
+                        <Form.Control autoFocus placeholder="Search" onChange={(event) => handleChange(event)} />
                     </Col>
                 </Form.Row>
             </Form>
