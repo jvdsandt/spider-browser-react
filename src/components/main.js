@@ -16,15 +16,17 @@ const Main = () => {
     return (
         <Router basename="/spider">
             <Topmenu/>
-            <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route path="/index.html" component={Home}/>
-                <Route path="/browse/:domain/:owner/:name/commit/:commitId" component={BrowseCommit}/>
-                <Route path="/browse/:domain/:owner/:name/branch/:branch" component={BrowseBranch}/>
-                <Route path="/browse/:domain/:owner/:name/tag/:tag" component={BrowseTag}/>
-                <Route path="/search" component={SearchPanel}/>
-                <Route path="/package_names/:name" component={PackageInfo} />
-            </Switch>
+            <Container>
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route path="/index.html" component={Home}/>
+                    <Route path="/browse/:domain/:owner/:name/commit/:commitId" component={BrowseCommit}/>
+                    <Route path="/browse/:domain/:owner/:name/branch/:branch" component={BrowseBranch}/>
+                    <Route path="/browse/:domain/:owner/:name/tag/:tag" component={BrowseTag}/>
+                    <Route path="/search" component={SearchPanel}/>
+                    <Route path="/package_names/:name" component={PackageInfo} />
+                </Switch>
+                </Container>
         </Router>
     );
 }
@@ -35,13 +37,11 @@ const Home = () => {
 
     return (
         <React.Fragment>
-            <Container>
-                <h1>spider-browser-react</h1>
-                <RepoBrowser onSelectionChange={(repo, commitId) => getCommitPackages(repo, commitId, setSelectedCommit)}/>
-                {selectedCommit && (
-                    <CommitCodeBrowser commit={selectedCommit}/>
-                )}
-            </Container>
+            <h1>spider-browser-react</h1>
+            <RepoBrowser onSelectionChange={(repo, commitId) => getCommitPackages(repo, commitId, setSelectedCommit)}/>
+            {selectedCommit && (
+                <CommitCodeBrowser commit={selectedCommit}/>
+            )}
         </React.Fragment>
     );
 }
@@ -98,10 +98,10 @@ const BrowseTag = ({match}) => {
 const SearchPanel = () => {
 
     return (
-        <Container>
+        <React.Fragment>
             <h1>spider-browser-react - Search</h1>
             <Search/>
-        </Container>
+        </React.Fragment>
     );
 }
 
