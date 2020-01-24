@@ -2,6 +2,15 @@ import React from "react";
 import {useFetch} from "../utils/useFetch";
 import {formatSha, formatTimestamp} from "../utils/format";
 import {Card, ListGroup} from "react-bootstrap";
+import {Link} from "react-router-dom";
+
+const CommaIfNotLast = ({ list, index }) => {
+    //console.log("list.length = " + list.length + " index = " + index)
+    if (list.length === index+1) {
+        return null;
+    }
+    return (<React.Fragment>, </React.Fragment>);
+};
 
 const GitCommitLine = ({ titlePrefix, commit }) => {
     return (
@@ -57,8 +66,11 @@ const MCRepoList = ({ list}) => {
 const GitAuthorsList = ({ list }) => {
     return (
         <React.Fragment>
-            {list.map(each => (
-                <span>{each}, </span>
+            {list.map((each, index) => (
+                <React.Fragment key={index}>
+                    <Link to={"/git_authors/" + each.author}>{each.author}</Link> ({each.count})
+                    <CommaIfNotLast list={list} index={index} />
+                </React.Fragment>
             ))}
         </React.Fragment>
     );
@@ -67,8 +79,11 @@ const GitAuthorsList = ({ list }) => {
 const MCAuthorsList = ({ list }) => {
     return (
         <React.Fragment>
-            {list.map(each => (
-                <span>{each[0]} ({each[1]}), </span>
+            {list.map((each, index) => (
+                <React.Fragment key={index}>
+                    <Link to={"/mc_authors/" + each.author}>{each.author}</Link> ({each.count})
+                    <CommaIfNotLast list={list} index={index} />
+                </React.Fragment>
             ))}
         </React.Fragment>
     );
@@ -101,7 +116,7 @@ const PackageMCInfo = ({ data }) => {
                 <ListGroup>
                     <ListGroup.Item><MCPackageLine titlePrefix="Oldest: " mcPackage={data.oldestMCPackage} /></ListGroup.Item>
                     <ListGroup.Item><MCPackageLine titlePrefix="Newest: " mcPackage={data.newestMCPackage}/></ListGroup.Item>
-                    <ListGroup.Item>Authors: <MCAuthorsList list={data.mcAuthors}/></ListGroup.Item>
+                    <ListGroup.Item>Author(s): <MCAuthorsList list={data.mcAuthors}/></ListGroup.Item>
                 </ListGroup>
             </Card>
         </React.Fragment>

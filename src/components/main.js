@@ -3,10 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Container, Card} from 'react-bootstrap';
 import {spiderFetch, useFetch} from "../utils/useFetch";
 import RepoBrowser from "./repobrowser";
-import Search from "./search/search.js";
+import Search from "../panels/search/search.js";
 import CommitCodeBrowser from "./commitcodebrowser";
 import Topmenu from "./topmenu/topmenu";
-import PackageInfo from "./packageinfo";
+import PackageInfo from "../panels/packageinfo";
+import GitAuthorInfo from "../panels/gitauthorinfo";
+import MCAuthorInfo from "../panels/mcauthorinfo";
+import GitRepoInfo from "../panels/gitrepoinfo";
+import ClassInfo from "../panels/classinfo";
 
 function getCommitPackages(repo, commitId, setter) {
     spiderFetch(`/git/repos/${repo.domain}/${repo.owner}/${repo.name}/commit/${commitId}`, setter);
@@ -25,6 +29,10 @@ const Main = () => {
                     <Route path="/browse/:domain/:owner/:name/tag/:tag" component={BrowseTag}/>
                     <Route path="/search" component={SearchPanel}/>
                     <Route path="/package_names/:name" component={PackageInfo} />
+                    <Route path="/class_names/:name" component={ClassInfo} />
+                    <Route path="/mc_authors/:name" component={MCAuthorInfo} />
+                    <Route path="/git_repos/:domain/:owner/:name" component={GitRepoInfo} />
+                    <Route path="/git_authors/:name" component={GitAuthorInfo} />
                 </Switch>
                 </Container>
         </Router>
