@@ -11,6 +11,8 @@ import GitAuthorInfo from "../panels/gitauthorinfo";
 import MCAuthorInfo from "../panels/mcauthorinfo";
 import GitRepoInfo from "../panels/gitrepoinfo";
 import ClassInfo from "../panels/classinfo";
+import GitRepos from "../panels/gitrepos";
+import SelectorInfo from "../panels/selectorinfo";
 
 function getCommitPackages(repo, commitId, setter) {
     spiderFetch(`/git/repos/${repo.domain}/${repo.owner}/${repo.name}/commit/${commitId}`, setter);
@@ -30,8 +32,10 @@ const Main = () => {
                     <Route path="/search" component={SearchPanel}/>
                     <Route path="/package_names/:name" component={PackageInfo} />
                     <Route path="/class_names/:name" component={ClassInfo} />
+                    <Route path="/selectors/:name" component={SelectorInfo} />
                     <Route path="/mc_authors/:name" component={MCAuthorInfo} />
                     <Route path="/git_repos/:domain/:owner/:name" component={GitRepoInfo} />
+                    <Route path="/git_repos" component={GitRepos} />
                     <Route path="/git_authors/:name" component={GitAuthorInfo} />
                 </Switch>
                 </Container>

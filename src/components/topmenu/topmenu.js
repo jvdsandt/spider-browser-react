@@ -12,7 +12,7 @@ const Topmenu = () => {
                 <Nav className="mr-auto">
                     <Link to="/" className="nav-link">Home</Link>
                     <Link to="/search" className="nav-link">Search</Link>
-                    <Link to="/search" className="nav-link">Git Repositories</Link>
+                    <Link to="/git_repos" className="nav-link">Git Repositories</Link>
                     <Link to="/search" className="nav-link">Monticello Repositories</Link>
                 </Nav>
             </Navbar.Collapse>
